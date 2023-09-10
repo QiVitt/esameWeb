@@ -1,0 +1,20 @@
+version: "3"
+services:
+  app:
+    container_name: app
+    build: .
+    command: bash /usr/src/app/run.sh
+    ports: 
+      - "3000:3000"
+    volumes:
+      - ./app:/usr/src/app
+      - ./client:/usr/src/client
+    links:
+      - "mongo:mongosrv"
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
